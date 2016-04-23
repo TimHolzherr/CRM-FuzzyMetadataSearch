@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>FuzzyMetadataSearch</title>
+	<script src=".\ClientGlobalContext.js.aspx" type="text/javascript"></script>
+	<script type="text/javascript" src=".\lib_\thr_jquery.js"> </script>
+	<script type="text/javascript" src=".\lib_\thr_selectize.js"> </script>
+	<script type="text/javascript" src=".\lib_\thr_SDK.MetaData.js"> </script>
+	<link rel="stylesheet" href=".\lib_\thr_selectize.default.css"> </script>
+	<script type="text/javascript" src=".\thr_downloadMetadata.js"> </script>	
+</head>
+<body>
+	<div>
+	<select id="fuzzyAttributes" class="demo" placeholder="Select ...">							
+	<option>bla</option>
+	</select>
+	</div>
+	<div>
+		<button onclick="localStorage.removeItem('data')">Reset Data</button>
+	</div>
+	<div>
+		<button onclick="downloadMetadata()">Download Data</button>
+	</div>
+</body>
+<script type="text/javascript" src=".\thr_fuzzyMetadataSearch.js"></script>
+</html>
