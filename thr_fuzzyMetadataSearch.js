@@ -1,4 +1,4 @@
-var data = JSON.parse(localStorage.data);
+//var data = JSON.parse(localStorage.data); if not defined ...
 
 function onChangeFuzzyAttributes (value) {
 	var url = "https://www.google.com/#safe=off&q="+value

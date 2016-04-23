@@ -2,25 +2,77 @@
 <html>
 <head>
 	<title>FuzzyMetadataSearch</title>
-	<script src=".\ClientGlobalContext.js.aspx" type="text/javascript"></script>
+	<meta charset="UTF-8">
+	<!--<script src=".\ClientGlobalContext.js.aspx" type="text/javascript"></script>-->
 	<script type="text/javascript" src=".\lib_\thr_jquery.js"> </script>
+	<script type="text/javascript" src=".\lib_\thr_bootstrap.js"> </script>
 	<script type="text/javascript" src=".\lib_\thr_selectize.js"> </script>
 	<script type="text/javascript" src=".\lib_\thr_SDK.MetaData.js"> </script>
-	<link rel="stylesheet" href=".\lib_\thr_selectize.default.css"> </script>
+	<link rel="stylesheet" href=".\lib_\thr_bootstrap.css"> </script>
+	<link rel="stylesheet" href=".\lib_\thr_selectize.default.css"> </script>	
+	<link rel="stylesheet" href=".\thr_layout.css"> </script>
 	<script type="text/javascript" src=".\thr_downloadMetadata.js"> </script>	
 </head>
 <body>
-	<div>
-	<select id="fuzzyAttributes" class="demo" placeholder="Select ...">							
-	<option>bla</option>
-	</select>
-	</div>
+	<div class="col-md-offset-2 col-md-8 col-xs-offset-1 col-xs-10">
+		<h1>Fuzzy Metadata Search</h1>
+		<br>
+		<div id="fistTime">
+			<div id="SolutionDropdown" class="dropdown" >
+				<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose your Solution
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu">
+					<li><a href="#">HTML</a></li>
+					<li><a href="#">CSS</a></li>
+					<li><a href="#">JavaScript</a></li>
+				</ul>
+			</div>
+			<br>	
+			<button class="btn btn-success btn-block" type="button">
+				Start Downloading Metadata
+			</button>
+			<br>
+			<div id="wait" class="alert alert-info">
+			<strong>Please wait.</strong> The metadata has to be downloaded only once. <br>The page will reload once the download has finished.
+			</div>
+		</div>
+
+		<div id="secondTime">
+			<div>
+				<select id="fuzzyAttributes" class="demo" placeholder="Select ...">							
+					<option>bla</option>
+				</select>
+			</div>
+			<br>
+			<div>
+				<button class="btn btn-success" >Publish Solution</button>
+			</div>
+	<!--
 	<div>
 		<button onclick="localStorage.removeItem('data')">Reset Data</button>
 	</div>
 	<div>
 		<button onclick="downloadMetadata()">Download Data</button>
 	</div>
+-->
+
+<div class="footer navbar-fixed-bottom">
+
+	<div class="col-md-offset-2 col-md-8 col-xs-offset-1 col-xs-10">	
+		<div class="row">
+			<div class="col-xs-6">
+				<bottom class="btn btn-info btn-block">Reload Metadata</bottom> 
+			</div>
+			<div class="col-xs-6" align="right">
+				<br>
+				<a href="mailto:tim_holzherr@bluewin.ch"><small style="color:gray;"> Developed by Tim Holzherr</small></a> 
+			</div>
+		</div>				
+	</div>
+</div>
+</div>
+</div>
 </body>
 <script type="text/javascript" src=".\thr_fuzzyMetadataSearch.js"></script>
 </html>
