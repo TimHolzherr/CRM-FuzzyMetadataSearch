@@ -14,26 +14,26 @@
 	<script type="text/javascript" src=".\thr_downloadMetadata.js"> </script>	
 </head>
 <body>
-	<div class="col-md-offset-2 col-md-8 col-xs-offset-1 col-xs-10">
+	<div class="col-md-offset-3 col-md-6 col-xs-offset-1 col-xs-10">
 		<h1>Fuzzy Metadata Search</h1>
 		<br>
-		<div id="fistTime">
+		<div id="firstTime">
 			<div id="SolutionDropdown" class="dropdown" >
 				<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose your Solution
 					<span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu">
-					<li><a href="#">HTML</a></li>
-					<li><a href="#">CSS</a></li>
-					<li><a href="#">JavaScript</a></li>
+					<li><a class="solutionPick">Solutoin 1</a></li>
+					<li><a class="solutionPick">Solutoin 2</a></li>
+					<li><a class="solutionPick">Solutoin 3</a></li>
 				</ul>
 			</div>
-			<br>	
-			<button class="btn btn-success btn-block" type="button">
+			<br>
+			<button class="btn btn-success btn-block" type="button" onclick="downloadMetadataButton()">
 				Start Downloading Metadata
 			</button>
 			<br>
-			<div id="wait" class="alert alert-info">
+			<div id="waiting" class="alert alert-info">
 			<strong>Please wait.</strong> The metadata has to be downloaded only once. <br>The page will reload once the download has finished.
 			</div>
 		</div>
@@ -46,7 +46,7 @@
 			</div>
 			<br>
 			<div>
-				<button class="btn btn-success" >Publish Solution</button>
+				<button class="btn btn-success" onclick="publishSolution()" >Publish Solution</button>
 			</div>
 	<!--
 	<div>
@@ -59,10 +59,10 @@
 
 <div class="footer navbar-fixed-bottom">
 
-	<div class="col-md-offset-2 col-md-8 col-xs-offset-1 col-xs-10">	
+	<div class="col-md-offset-3 col-md-6 col-xs-offset-1 col-xs-10">	
 		<div class="row">
 			<div class="col-xs-6">
-				<bottom class="btn btn-info btn-block">Reload Metadata</bottom> 
+				<bottom class="btn btn-info btn-block"  onclick="reloadMetadataButton()">Reload Metadata</bottom> 
 			</div>
 			<div class="col-xs-6" align="right">
 				<br>
