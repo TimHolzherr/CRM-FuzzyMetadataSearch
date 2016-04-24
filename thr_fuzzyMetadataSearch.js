@@ -1,33 +1,28 @@
-(function () {
-	onStartUp();
+onStartUp();
 
-	function onStartUp() {
-		$('#waiting').hide();
-		if (hasValidCache()){
-			// Load second view
-			$('#firstTime').show();
-			$('#secondTime').hide();
-		}
-		else {
-			// Load first start view
-			$('#firstTime').hide();
-			$('#secondTime').show();
-		}
-		// wire up buttons
-		$()
+function onStartUp() {
+	$('#waiting').hide();
+	if (hasValidCache()){
+		// Load second view
+		$('#firstTime').hide();
+		$('#secondTime').show();
 	}
+	else {
+		// Load first start view
+		$('#solutionDropdown').html('Choose your Solution <span class="caret"></span>');
+		$('#firstTime').show();
+		$('#secondTime').hide();		
+	}
+			
+	//var data = JSON.parse(localStorage.data); if not defined ...
 
 	function hasValidCache(){
-		return true;
 		if (localStorage.solutionId && localStorage.data){
 			return true;
 		}
 		return false;
 	}
-
-
-//var data = JSON.parse(localStorage.data); if not defined ...
-
+	
 	function onChangeFuzzyAttributes (value) {
 		var url = "https://www.google.com/#safe=off&q="+value
 		var win = window.open(url, '_blank');
@@ -45,9 +40,7 @@
 			}
 		}						
 	});
-
-
-})();
+}
 
 
 function publishSolution(){
@@ -57,12 +50,22 @@ function publishSolution(){
 
 function downloadMetadataButton(){
 	$('#waiting').show();
+	localStorage.data = "data"
+	localStorage.solutionId = "solutionId"
 	alert("TODO: Implement Download Metadata Button");
+	onStartUp();
 }
 
 function reloadMetadataButton(){
+	localStorage.removeItem('data');
+	localStorage.removeItem('solutionId');
 	alert("TODO: Implement reloadMetadataButton");
+	onStartUp();
 }
 
+$('.solutionPick').click( function (element) {
+	$('#solutionDropdown').html(element.target.text + ' <span class="caret"></span>');
+}
+);
 
-$('.solutionPick').click( function (element) {console.log(element.target);} );
+
