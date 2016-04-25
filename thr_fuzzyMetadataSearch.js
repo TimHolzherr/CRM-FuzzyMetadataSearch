@@ -6,6 +6,22 @@ function onStartUp() {
 		// Load second view
 		$('#firstTime').hide();
 		$('#secondTime').show();
+		data = JSON.parse(localStorage.data);
+
+		$fuzzyAttributes = $('#fuzzyAttributes').selectize({
+					    onChange: onChangeFuzzyAttributes,
+						valueField: 'id',    					
+    					searchField: ['enitySchemaName', 'attributeSchemaName', 'EntityName', 'attributeName'],
+						options: data,
+						render: {
+							option: function(item, escape){
+								return renderTemplate.replace('{entitySchema}', item.enitySchemaName)
+													 .replace('{attrSchema}', item.attributeSchemaName)
+													 .replace('{entityLabel}', item.EntityName)
+													 .replace('{attrLabel}', item.attributeName)								 
+								}
+							}						
+						});
 	}
 	else {
 		// Load first start view
@@ -24,22 +40,34 @@ function onStartUp() {
 	}
 	
 	function onChangeFuzzyAttributes (value) {
-		var url = "https://www.google.com/#safe=off&q="+value
+		serverUlr = 'https://timholzherr.crm4.dynamics.com'
+		if (value === "") {
+		return;
+		}
+		var d = data[value];
+		var url = url =  serverUlr + '/tools/systemcustomization/attributes/manageAttribute.aspx?appSolutionId=%7b' 
+		+ localStorage.solutionId + 
+		'%7d' +
+		'&entityId=%7b' +
+		d.entityId +
+		'%7d';
+		;
+		if (d.attributeId !== ""){		
+			url = url + '&attributeId=%7b' + d.attributeId  + '%7d';
+		} 		
 		var win = window.open(url, '_blank');
-		win.focus();
+	  	win.focus();
+	  	//$fuzzyAttributes.selectize()[0].setValue("");// selectize.setValue(1, true)
+	  	$(this)[0].setValue("");
 	}
 
-	$fuzzyAttributes = $('#fuzzyAttributes').selectize({
-		onChange: onChangeFuzzyAttributes,
-		valueField: 'id',    					
-		searchField: ['entitySchemaName', 'attributeSchemaName'],
-		options: data,
-		render: {
-			option: function(item, escape){
-				return("<div>" + item.entitySchemaName + "              " + item.attributeSchemaName+"</div>");
-			}
-		}						
-	});
+	var renderTemplate = 
+		"<div>\
+			<B>{entitySchema}:</B>  {attrSchema} <br>\
+			<small><B>{entityLabel}:</B> {attrLabel}</small> \
+		</div>"
+
+
 }
 
 
@@ -52,14 +80,12 @@ function downloadMetadataButton(){
 	$('#waiting').show();
 	localStorage.data = "data"
 	localStorage.solutionId = "solutionId"
-	alert("TODO: Implement Download Metadata Button");
-	onStartUp();
+	downloadMetadata();
 }
 
 function reloadMetadataButton(){
 	localStorage.removeItem('data');
-	localStorage.removeItem('solutionId');
-	alert("TODO: Implement reloadMetadataButton");
+	localStorage.removeItem('solutionId');	
 	onStartUp();
 }
 

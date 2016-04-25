@@ -6,7 +6,7 @@ var downloadMetadata = function() {
 
 	function start() {
 		alert("Start Downloading Data")
-		SDK.Metadata.RetrieveAllEntities(SDK.Metadata.EntityFilters.Entity,
+		SDK.Metadata.RetrieveAllEntities(SDK.Metadata.EntityFilters.Attributes,
     	false,
     	successRetrieveAllEntities,
     	errorRetrieveAllEntities);
@@ -17,20 +17,26 @@ var downloadMetadata = function() {
 	}
 
 	function successRetrieveAllEntities(entityMetadataCollection) {
-		lastEntity = entityMetadataCollection[entityMetadataCollection.length - 1].LogicalName
 		for (var i = 0; i < entityMetadataCollection.length; i++) {
-		    SDK.Metadata.RetrieveEntity(SDK.Metadata.EntityFilters.Attributes,
-	    		entityMetadataCollection[i].LogicalName,
-	    		null,
-			    false,	
-			    successRetrieveEntity,
-			    errorRetrieveEntity);	   
+		    var entity = entityMetadataCollection[i];
+		    debugger;
+		    if (!entity.IsCustomizable.Value){
+		    	continue;
+		    }		    
+		    addToDataList(entity, {SchemaName:'New Attribute', MetadataId:'', DisplayName:{UserLocalizedLabel:{Label:'New Attribute'}}});
+		    for (var j = 0; j < entity.Attributes.length; j++){
+		    	var attribute = entity.Attributes[j];
+		    	if (!attribute.IsCustomizable.Value || attribute.AttributeOf != null){
+		    		continue;
+		    	}
+		    	addToDataList(entity, attribute);		    			    
+		    }
    		}
+   		localStorage.data = JSON.stringify(data);
+	    localStorage.solutionId = 'fd140aaf-4df4-11dd-bd17-0019b9312238';
+	    onStartUp();
 	}
-
-	function errorRetrieveEntity(error) {
-		alert("Could not recieve entitie, error=" + error)
-	}
+	
 
 	function successRetrieveEntity(entityMetadata){
 		for (var i = 0; i < entityMetadata.Attributes.length; i++) {
@@ -44,15 +50,24 @@ var downloadMetadata = function() {
    		}
 	}
 
-	function addToDataList(entityData, attribute){
+	function addToDataList(entity, attribute){
 		data.push({
 			id:index, 
-			entitySchemaName:entityData.SchemaName,
-			entityLogicalName:entityData.LogicalName,
+			entitySchemaName:entity.SchemaName,
+			entityId:entity.MetadataId,
+			entityName:entity.DisplayName.UserLocalizedLabel == null ? "null" : removeAccent(entity.DisplayName.UserLocalizedLabel.Label),
 			attributeSchemaName:attribute.SchemaName,
-			attributeLogicalName:attribute.LogicalName,
+			attributeId:attribute.MetadataId,
+			attributeName:attribute.DisplayName.UserLocalizedLabel == null ? "null" : removeAccent(attribute.DisplayName.UserLocalizedLabel.Label),
 		});
 		index = index + 1;
+	}
+
+	function removeAccent(string){
+		if (string == null){
+			return "";
+		}
+		return string.replace("'", "").replace("\n", "") 	
 	}
 
 	start();
