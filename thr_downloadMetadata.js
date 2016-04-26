@@ -1,11 +1,9 @@
 var data = [];
-var finished = false;
+
 var downloadMetadata = function() {	
 	var index = 0;
-	var lastEntity = "\\";
 
 	function start() {
-		alert("Start Downloading Data")
 		SDK.Metadata.RetrieveAllEntities(SDK.Metadata.EntityFilters.Attributes,
     	false,
     	successRetrieveAllEntities,
@@ -18,8 +16,7 @@ var downloadMetadata = function() {
 
 	function successRetrieveAllEntities(entityMetadataCollection) {
 		for (var i = 0; i < entityMetadataCollection.length; i++) {
-		    var entity = entityMetadataCollection[i];
-		    debugger;
+		    var entity = entityMetadataCollection[i];		    
 		    if (!entity.IsCustomizable.Value){
 		    	continue;
 		    }		    
@@ -37,19 +34,6 @@ var downloadMetadata = function() {
 	    onStartUp();
 	}
 	
-
-	function successRetrieveEntity(entityMetadata){
-		for (var i = 0; i < entityMetadata.Attributes.length; i++) {
-		    var attribute = entityMetadata.Attributes[i];
-		    addToDataList(entityMetadata, attribute);		   		 
-   		}
-   		// 
-   		if (entityMetadata.LogicalName === lastEntity){
-   			alert("downloaded all Metadata")
-   			localStorage.data = JSON.stringify(data);
-   		}
-	}
-
 	function addToDataList(entity, attribute){
 		data.push({
 			id:index, 

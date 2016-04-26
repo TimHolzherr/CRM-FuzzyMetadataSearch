@@ -11,13 +11,13 @@ function onStartUp() {
 		$fuzzyAttributes = $('#fuzzyAttributes').selectize({
 					    onChange: onChangeFuzzyAttributes,
 						valueField: 'id',    					
-    					searchField: ['enitySchemaName', 'attributeSchemaName', 'EntityName', 'attributeName'],
+    					searchField: ['entitySchemaName', 'attributeSchemaName', 'entityName', 'attributeName'],
 						options: data,
 						render: {
 							option: function(item, escape){
-								return renderTemplate.replace('{entitySchema}', item.enitySchemaName)
+								return renderTemplate.replace('{entitySchema}', item.entitySchemaName)
 													 .replace('{attrSchema}', item.attributeSchemaName)
-													 .replace('{entityLabel}', item.EntityName)
+													 .replace('{entityLabel}', item.entityName)
 													 .replace('{attrLabel}', item.attributeName)								 
 								}
 							}						
@@ -28,9 +28,7 @@ function onStartUp() {
 		$('#solutionDropdown').html('Choose your Solution <span class="caret"></span>');
 		$('#firstTime').show();
 		$('#secondTime').hide();		
-	}
-			
-	//var data = JSON.parse(localStorage.data); if not defined ...
+	}			
 
 	function hasValidCache(){
 		if (localStorage.solutionId && localStorage.data){
@@ -40,7 +38,7 @@ function onStartUp() {
 	}
 	
 	function onChangeFuzzyAttributes (value) {
-		serverUlr = 'https://timholzherr.crm4.dynamics.com'
+		serverUlr = GetGlobalContext().getClientUrl();
 		if (value === "") {
 		return;
 		}
@@ -56,8 +54,7 @@ function onStartUp() {
 			url = url + '&attributeId=%7b' + d.attributeId  + '%7d';
 		} 		
 		var win = window.open(url, '_blank');
-	  	win.focus();
-	  	//$fuzzyAttributes.selectize()[0].setValue("");// selectize.setValue(1, true)
+	  	win.focus();	  	
 	  	$(this)[0].setValue("");
 	}
 
@@ -66,13 +63,11 @@ function onStartUp() {
 			<B>{entitySchema}:</B>  {attrSchema} <br>\
 			<small><B>{entityLabel}:</B> {attrLabel}</small> \
 		</div>"
-
-
 }
 
 
 function publishSolution(){
-	alert("TODO: Implement publishSolution");
+	SDK.PUBLISH.PublishAllXmlRequest();
 }
 
 
