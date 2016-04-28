@@ -69,7 +69,7 @@ if (typeof (SDK) == "undefined")
                if (req.status == 200) {
                //if (successCallback != null)
                //{ successCallback(); }
-               alert("Published All Customizations!!");
+               $('#publishSpinner').hide();
                }
                else {
                    errorCallback(SDK.PUBLISH._getError(req.responseXML));

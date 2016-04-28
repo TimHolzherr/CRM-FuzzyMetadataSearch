@@ -1,4 +1,5 @@
 onStartUp();
+findSolutions();
 
 function onStartUp() {
 	$('#waiting').hide();
@@ -68,6 +69,7 @@ function onStartUp() {
 
 function publishSolution(){
 	SDK.PUBLISH.PublishAllXmlRequest();
+	$('#publishSpinner').show();
 }
 
 

@@ -9,6 +9,7 @@
 	<script type="text/javascript" src=".\lib_\thr_selectize.js"> </script>
 	<script type="text/javascript" src=".\lib_\thr_SDK.MetaData.js"> </script>
 	<script type="text/javascript" src=".\lib_\thr_SDK.Publish.js"> </script>
+	<script type="text/javascript" src=".\lib_\thr_findSolutions.js"> </script>
 	<link rel="stylesheet" href=".\lib_\thr_bootstrap.css"> </script>
 	<link rel="stylesheet" href=".\lib_\thr_selectize.default.css"> </script>		
 	<!--<link rel="stylesheet" href=".\thr_layout.css"> </script>-->
@@ -19,15 +20,12 @@
 		<h1>Fuzzy Metadata Search</h1>
 		<br>
 		
-		<div id="firstTime">
+		<div id="firstTime" style="display: none;">
 			<div class="dropdown" >
 				<button id="solutionDropdown" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose your Solution
 					<span class="caret"></span>
 				</button>
-				<ul class="dropdown-menu">
-					<li><a class="solutionPick">Solutoin 1</a></li>
-					<li><a class="solutionPick">Solutoin 2</a></li>
-					<li><a class="solutionPick">Solutoin 3</a></li>
+				<ul id="solutionDrowdownContent" class="dropdown-menu">
 				</ul>
 			</div>
 			<br>
@@ -35,12 +33,14 @@
 				Start Downloading Metadata
 			</button>
 			<br>
-			<div id="waiting" class="alert alert-info">
+			<div id="waiting">
+			<div class="alert alert-info">
 				<strong>Please wait.</strong> This action takes approximately 1 minute.<br> The metadata has to be downloaded only once. <br>The page will reload once the download has finished.
 			</div>
 			<div align="center" class="spinner"> </div>
+			</div>			
 		</div>		
-		<div id="secondTime">
+		<div id="secondTime" style="display: none;">
 			<div>
 				<select id="fuzzyAttributes" class="demo" placeholder="Select ...">							
 					<option></option>
@@ -51,7 +51,7 @@
 				<button class="btn btn-success" onclick="publishSolution()" >Publish Solution</button>
 
 			</div>
-			<div align="center" id="spinner"> </div>
+			<div align="center" id="publishSpinner" class="spinner" style="display: none;"> </div>
 			<div class="footer navbar-fixed-bottom">
 
 				<div class="col-md-offset-3 col-md-6 col-xs-offset-1 col-xs-10">	
