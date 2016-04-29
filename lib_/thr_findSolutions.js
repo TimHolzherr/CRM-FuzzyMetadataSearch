@@ -24,6 +24,12 @@ function findSolutions(){
    for (var i = 0; i < results.length; i++) {
         $('#solutionDrowdownContent').append('<li id="' + results[i].SolutionId + '"><a class="solutionPick">' + results[i].FriendlyName +'</a></li>');        
    }
+   $('.solutionPick').click( function (element) {
+        $('#solutionDropdown').html(element.target.text + ' <span class="caret"></span>');
+        localStorage.solutionId = element.target.parentElement.id
+        $('#DownloadMetadataButton').prop( "disabled", false );
+    });
+
 
     },
 

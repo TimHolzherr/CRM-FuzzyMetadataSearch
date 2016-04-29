@@ -14,6 +14,7 @@ function onStartUp() {
 						valueField: 'id',    					
     					searchField: ['entitySchemaName', 'attributeSchemaName', 'entityName', 'attributeName'],
 						options: data,
+						maxOptions: 10,
 						render: {
 							option: function(item, escape){
 								return renderTemplate.replace('{entitySchema}', item.entitySchemaName)
