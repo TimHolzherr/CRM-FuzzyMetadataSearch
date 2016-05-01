@@ -7,7 +7,7 @@ function findSolutions(){
 
     datatype: "json",
 
-    url:  GetGlobalContext().getClientUrl() + "/XRMServices/2011/OrganizationData.svc/SolutionSet?$select=FriendlyName,SolutionId",
+    url:  GetGlobalContext().getClientUrl() + "/XRMServices/2011/OrganizationData.svc/SolutionSet?$select=FriendlyName,SolutionId&$filter=IsVisible eq true",
 
     beforeSend: function (XMLHttpRequest) {
 
